@@ -38,7 +38,7 @@ class APIManager {
                 Singleton.sharedInstance.userKey = userKey
                 completion(registered, expiration)
             } else {
-                completion(nil, nil)
+                completion(false, nil)
             }
         }
         task.resume()
