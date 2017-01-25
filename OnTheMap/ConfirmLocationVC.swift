@@ -40,7 +40,7 @@ class ConfirmLocationVC: UIViewController {
     }
     
     @IBAction func cacelButtonAction(_ sender: Any) {
-        let _ = navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }

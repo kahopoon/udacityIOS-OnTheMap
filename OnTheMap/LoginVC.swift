@@ -24,7 +24,7 @@ class LoginVC: UIViewController {
             
             uiOnHold(true)
             activityView.startAnimating()
-            APIManager.udacityLogin(username: emailTextfield.text!, password: passwordTextfield.text!, completion: { (isRegistered) in
+            APIManager.udacityLogin(username: emailTextfield.text!, password: passwordTextfield.text!, completion: { (isRegistered, expiration) in
                 
                 DispatchQueue.main.async(execute: {
                     self.uiOnHold(false)
@@ -33,7 +33,7 @@ class LoginVC: UIViewController {
                 
                 if let result = isRegistered {
                     if result {
-                        Utility.saveUsernamePassword(username: self.emailTextfield.text!, password: self.passwordTextfield.text!)
+                        Utility.saveSession(withDateString: expiration!)
                         self.initTabBarVC()
                     } else {
                         Utility.genericAlert(title: "Warning", message: "Invalid email / password...", sender: self)

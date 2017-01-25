@@ -43,7 +43,7 @@ class AddLocationVC: UIViewController {
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
-        let _ = navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -18,15 +18,8 @@ class PreloadingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let identity = Utility.getUsernamePassword()
-        if let username = identity.username, let password = identity.password {
-            APIManager.udacityLogin(username: username, password: password, completion: { (isRegistered) in
-                if let result = isRegistered {
-                    result ? self.initTabBarVC() : self.initLoginVC()
-                } else {
-                    self.initLoginVC()
-                }
-            })
+        if Utility.isSessionValid() {
+            initTabBarVC()
         } else {
             initLoginVC()
         }

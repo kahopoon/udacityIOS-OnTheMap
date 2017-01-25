@@ -47,6 +47,7 @@ class TableViewVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UIApplication.shared.open(URL(string: studentsLocation[indexPath.row].mediaURL)!, options: [:], completionHandler: nil)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     @IBAction func refreshStudentsLocationAction(_ sender: Any) {

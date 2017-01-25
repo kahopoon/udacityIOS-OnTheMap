@@ -12,12 +12,6 @@ import MapKit
 
 class Utility {
     
-    public static let sharedInstance = Utility()
-    private init() {}
-    
-    var userKey:String?
-    var studentsLocation:[StudentLocation]?
-    
     static func genericAlert(title: String, message: String, sender: UIViewController) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -29,35 +23,34 @@ class Utility {
         }
     }
     
-    static func saveUsernamePassword(username:String, password: String) {
-        // please forgive me using unencrypted user defaults...
-        UserDefaults.standard.set(username, forKey: "username")
-        UserDefaults.standard.set(password, forKey: "password")
+    static func saveSession(withDateString: String) {
+        let validDate = dateFromString(withDateString)
+        UserDefaults.standard.set(validDate, forKey: "session")
         UserDefaults.standard.synchronize()
     }
     
-    static func getUsernamePassword() -> (username:String?, password: String?) {
-        if let username = UserDefaults.standard.object(forKey: "username"), let password = UserDefaults.standard.object(forKey: "password") {
-            return (username as? String, password as? String)
-        }
-        return (nil, nil)
-    }
-
-    static func clearUsernamePassword() {
-        UserDefaults.standard.removeObject(forKey: "username")
-        UserDefaults.standard.removeObject(forKey: "password")
+    static func deleteSession() {
+        UserDefaults.standard.removeObject(forKey: "session")
         UserDefaults.standard.synchronize()
+    }
+    
+    static func isSessionValid() -> Bool {
+        if let session = UserDefaults.standard.object(forKey: "session") {
+            let sessionDate = session as! Date
+            return sessionDate.compare(Date()) == .orderedDescending
+        }
+        return false
     }
     
     static func getStudentsLocation(fromCacheIfAvailable: Bool, completion: @escaping (_ result: [StudentLocation]?) -> Void) {
-        if fromCacheIfAvailable && Utility.sharedInstance.studentsLocation != nil {
-            completion(Utility.sharedInstance.studentsLocation!)
+        if fromCacheIfAvailable && Singleton.sharedInstance.studentsLocation != nil {
+            completion(Singleton.sharedInstance.studentsLocation!)
         } else {
             APIManager.getStudentLocations { (studentsLocation) in
                 if studentsLocation == nil {
                     completion(nil)
                 } else {
-                    Utility.sharedInstance.studentsLocation = studentsLocation
+                    Singleton.sharedInstance.studentsLocation = studentsLocation
                     completion(studentsLocation!)
                 }
             }
@@ -65,7 +58,7 @@ class Utility {
     }
     
     static func logout(completion: @escaping (_ success: Bool) ->  Void) {
-        clearUsernamePassword()
+        Utility.deleteSession()
         APIManager.deleteSession { (success) in
             completion(success)
         }
@@ -84,6 +77,15 @@ class Utility {
                 completion(false, nil)
             }
         }
+    }
+    
+    static func dateFromString(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        guard let date = dateFormatter.date(from: dateString) else {
+            return nil
+        }
+        return date
     }
     
 }

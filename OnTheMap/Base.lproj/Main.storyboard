@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="G54-PB-Dic">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="G54-PB-Dic">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -245,7 +245,7 @@
                             <barButtonItem systemItem="add" id="43Q-NF-ikP">
                                 <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <segue destination="MKt-IA-OtX" kind="show" id="BZP-Bs-ftr"/>
+                                    <segue destination="MKt-IA-OtX" kind="presentation" id="BZP-Bs-ftr"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="PGH-60-BCD">
@@ -265,7 +265,7 @@
             </objects>
             <point key="canvasLocation" x="2676" y="223.53823088455775"/>
         </scene>
-        <!--Add Location-->
+        <!--Add LocationVC-->
         <scene sceneID="J45-Hu-CrM">
             <objects>
                 <viewController storyboardIdentifier="AddLocationVC" hidesBottomBarWhenPushed="YES" id="MKt-IA-OtX" customClass="AddLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -313,11 +313,29 @@
                                 <rect key="frame" x="169" y="415" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHq-4p-OMp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="jyu-BX-2NQ"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Add Location" id="PWp-Qm-NOA">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Kie-1W-0sG">
+                                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="cancelButtonAction:" destination="MKt-IA-OtX" id="9Ao-ua-WkZ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="clS-kg-VIL" firstAttribute="centerX" secondItem="KGb-O8-d85" secondAttribute="centerX" id="1vu-CN-nzo"/>
                             <constraint firstItem="fJB-dC-SBn" firstAttribute="width" secondItem="U3c-oV-Xin" secondAttribute="width" id="BNB-1r-Shz"/>
+                            <constraint firstAttribute="trailing" secondItem="xHq-4p-OMp" secondAttribute="trailing" id="HWt-jg-BqV"/>
+                            <constraint firstItem="xHq-4p-OMp" firstAttribute="top" secondItem="KGb-O8-d85" secondAttribute="top" id="S7p-X8-vSh"/>
                             <constraint firstItem="2DN-6L-KgH" firstAttribute="width" secondItem="fJB-dC-SBn" secondAttribute="width" id="WVR-bF-047"/>
                             <constraint firstItem="fJB-dC-SBn" firstAttribute="centerX" secondItem="KGb-O8-d85" secondAttribute="centerX" id="ZSZ-za-LLh"/>
                             <constraint firstItem="fJB-dC-SBn" firstAttribute="top" secondItem="U3c-oV-Xin" secondAttribute="bottom" constant="8" id="b03-EY-9ZG"/>
@@ -325,18 +343,11 @@
                             <constraint firstItem="U3c-oV-Xin" firstAttribute="centerY" secondItem="KGb-O8-d85" secondAttribute="centerY" multiplier="0.7" id="iIn-jj-mjd"/>
                             <constraint firstItem="clS-kg-VIL" firstAttribute="centerY" secondItem="KGb-O8-d85" secondAttribute="centerY" multiplier="1.3" id="jS8-xV-PlB"/>
                             <constraint firstItem="2DN-6L-KgH" firstAttribute="centerX" secondItem="KGb-O8-d85" secondAttribute="centerX" id="kDY-EJ-Bpb"/>
+                            <constraint firstItem="xHq-4p-OMp" firstAttribute="leading" secondItem="KGb-O8-d85" secondAttribute="leading" id="l46-ie-Irs"/>
                             <constraint firstItem="U3c-oV-Xin" firstAttribute="width" secondItem="KGb-O8-d85" secondAttribute="width" multiplier="0.8" id="oD7-g1-6ah"/>
                             <constraint firstItem="U3c-oV-Xin" firstAttribute="centerX" secondItem="KGb-O8-d85" secondAttribute="centerX" id="tXq-qm-YJK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Location" id="PWp-Qm-NOA">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Kie-1W-0sG">
-                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="cancelButtonAction:" destination="MKt-IA-OtX" id="9Ao-ua-WkZ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="clS-kg-VIL" id="nKW-Oy-yfO"/>
                         <outlet property="findLocationButton" destination="2DN-6L-KgH" id="mBL-hK-cos"/>
@@ -347,9 +358,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Qt-3f-Rbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3506" y="-7"/>
+            <point key="canvasLocation" x="3511.1999999999998" y="-8.5457271364317844"/>
         </scene>
-        <!--Add Location-->
+        <!--Confirm LocationVC-->
         <scene sceneID="unT-d0-LPr">
             <objects>
                 <viewController storyboardIdentifier="ConfirmLocationVC" hidesBottomBarWhenPushed="YES" id="24u-0m-H50" customClass="ConfirmLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -362,10 +373,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4xu-v0-skE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Sq-t2-ank">
-                                <rect key="frame" x="37" y="566" width="300" height="40"/>
+                                <rect key="frame" x="37" y="615" width="300" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CoX-L1-4VU"/>
@@ -382,10 +393,28 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-5J-AQT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="zY9-q7-m6f"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Add Location" id="nkD-MN-8Y6">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="e77-hy-UR2">
+                                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="cacelButtonAction:" destination="24u-0m-H50" id="RyX-8x-bjb"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4xu-v0-skE" firstAttribute="leading" secondItem="uSs-aN-LA6" secondAttribute="leading" id="0Di-bR-OSm"/>
+                            <constraint firstAttribute="trailing" secondItem="eCh-5J-AQT" secondAttribute="trailing" id="ESU-XH-q6U"/>
+                            <constraint firstItem="eCh-5J-AQT" firstAttribute="leading" secondItem="uSs-aN-LA6" secondAttribute="leading" id="H73-ry-QIB"/>
                             <constraint firstItem="bMY-Mm-30c" firstAttribute="centerY" secondItem="uSs-aN-LA6" secondAttribute="centerY" id="T6z-xf-agD"/>
                             <constraint firstItem="1Sq-t2-ank" firstAttribute="width" secondItem="uSs-aN-LA6" secondAttribute="width" multiplier="0.8" id="Zg7-t2-b8O"/>
                             <constraint firstItem="Jfd-OJ-i6y" firstAttribute="top" secondItem="1Sq-t2-ank" secondAttribute="bottom" constant="12" id="kWY-FA-SIU"/>
@@ -393,17 +422,10 @@
                             <constraint firstItem="bMY-Mm-30c" firstAttribute="centerX" secondItem="uSs-aN-LA6" secondAttribute="centerX" id="l8f-B0-Hqa"/>
                             <constraint firstItem="1Sq-t2-ank" firstAttribute="centerX" secondItem="uSs-aN-LA6" secondAttribute="centerX" id="pM7-Al-LXF"/>
                             <constraint firstItem="4xu-v0-skE" firstAttribute="top" secondItem="xn3-E7-3DJ" secondAttribute="bottom" id="r2t-kg-D1d"/>
+                            <constraint firstItem="eCh-5J-AQT" firstAttribute="top" secondItem="uSs-aN-LA6" secondAttribute="top" id="wCs-QB-bgl"/>
                             <constraint firstAttribute="bottom" secondItem="4xu-v0-skE" secondAttribute="bottom" id="zCX-e7-YWR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Location" id="nkD-MN-8Y6">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="e77-hy-UR2">
-                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="cacelButtonAction:" destination="24u-0m-H50" id="RyX-8x-bjb"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="bMY-Mm-30c" id="1zz-pk-qwh"/>
                         <outlet property="mapView" destination="4xu-v0-skE" id="OHw-rw-2b4"/>
@@ -457,7 +479,7 @@
                             <barButtonItem systemItem="add" id="5T6-Bf-gN6">
                                 <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <segue destination="MKt-IA-OtX" kind="show" id="4EE-yK-K7N"/>
+                                    <segue destination="MKt-IA-OtX" kind="presentation" id="4EE-yK-K7N"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="wol-Qf-MfQ">

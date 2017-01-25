@@ -14,7 +14,7 @@ class APIManager {
     private static let parseApplicationID   = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     private static let parseAPIKey          = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     
-    static func udacityLogin(username:String, password:String, completion: @escaping (_ isRegistered: Bool?) -> Void) {
+    static func udacityLogin(username:String, password:String, completion: @escaping (_ isRegistered: Bool?, _ expiration: String?) -> Void) {
         let request = NSMutableURLRequest(url: URL(string: udacityEndpoint)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -23,7 +23,7 @@ class APIManager {
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
-                completion(nil)
+                completion(nil, nil)
                 return
             }
             let range = Range(uncheckedBounds: (5, data!.count - 0))
@@ -31,12 +31,14 @@ class APIManager {
             
             if let json = try? JSONSerialization.jsonObject(with: newData!) as? [String:Any],
                 let account = json?["account"] as? [String:Any],
+                let session = json?["session"] as? [String:Any],
                 let registered = account["registered"] as? Bool,
-                let userKey = account["key"] as? String {
-                Utility.sharedInstance.userKey = userKey
-                completion(registered)
+                let userKey = account["key"] as? String,
+                let expiration = session["expiration"] as? String {
+                Singleton.sharedInstance.userKey = userKey
+                completion(registered, expiration)
             } else {
-                completion(nil)
+                completion(nil, nil)
             }
         }
         task.resume()
@@ -121,7 +123,7 @@ class APIManager {
         }
     }
     
-    static func getUserData(userKey: String = Utility.sharedInstance.userKey!, completion: @escaping (_ success: Bool, _ firstName: String?, _ lastName: String?) -> Void) {
+    static func getUserData(userKey: String = Singleton.sharedInstance.userKey!, completion: @escaping (_ success: Bool, _ firstName: String?, _ lastName: String?) -> Void) {
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(userKey)")!)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
