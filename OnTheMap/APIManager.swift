@@ -45,7 +45,7 @@ class APIManager {
     }
     
     static func getStudentLocations(completion: @escaping (_ studentsLocation:[StudentLocation]?) -> Void) {
-        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100")!)
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100&order=-updatedAt")!)
         request.addValue(parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(parseAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared

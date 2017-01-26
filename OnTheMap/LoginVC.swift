@@ -22,8 +22,11 @@ class LoginVC: UIViewController {
         
         if checkInputTextfieldValid() {
             
-            uiOnHold(true)
-            activityView.startAnimating()
+            DispatchQueue.main.async(execute: {
+                self.uiOnHold(true)
+                self.activityView.startAnimating()
+            })
+
             APIManager.udacityLogin(username: emailTextfield.text!, password: passwordTextfield.text!, completion: { (isRegistered, expiration) in
                 
                 DispatchQueue.main.async(execute: {

@@ -13,7 +13,6 @@ class TableViewVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    var studentsLocation:[StudentLocation] = []
     var initalLoading = true
     
     override func viewDidLoad() {
@@ -34,19 +33,19 @@ class TableViewVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentsLocation.count
+        return Singleton.sharedInstance.studentsLocation!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        cell.initWithData(studentLocation: studentsLocation[indexPath.row])
+        cell.initWithData(studentLocation: Singleton.sharedInstance.studentsLocation![indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UIApplication.shared.open(URL(string: studentsLocation[indexPath.row].mediaURL)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: Singleton.sharedInstance.studentsLocation![indexPath.row].mediaURL)!, options: [:], completionHandler: nil)
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
@@ -58,7 +57,7 @@ class TableViewVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             } else {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
-                    self.studentsLocation = studentsLocation!
+                    Singleton.sharedInstance.studentsLocation = studentsLocation!
                     self.tableView.reloadData()
                 }
             }

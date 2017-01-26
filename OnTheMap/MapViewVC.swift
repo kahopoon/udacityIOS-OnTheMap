@@ -51,20 +51,28 @@ class MapViewVC: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         DispatchQueue.main.async {
-            UIApplication.shared.open(URL(string: ((view.annotation?.subtitle)!)!)!, options: [:], completionHandler: nil)
+            
+            let url = URL(string: ((view.annotation?.subtitle)!)!)!
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                Utility.genericAlert(title: "Warning", message: "URL \(url) can not be open!", sender: self)
+            }
+            
         }
     }
     
     @IBAction func refreshStudentsLocationAction(_ sender: Any) {
         activityIndicator.startAnimating()
         Utility.getStudentsLocation(fromCacheIfAvailable: initalLoading) { (studentsLocation) in
+            self.activityIndicator.stopAnimating()
             if studentsLocation == nil {
                 Utility.genericAlert(title: "Warning", message: "Students location download failed", sender: self)
             } else {
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotations(self.studentsLocationToAnnotations(studentsLocation!))
+                    Singleton.sharedInstance.studentsLocation = studentsLocation
                 }
             }
         }
